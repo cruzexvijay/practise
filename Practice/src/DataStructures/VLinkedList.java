@@ -1,5 +1,7 @@
 package DataStructures;
 
+import Util.LLutil;
+
 public class VLinkedList {
 
 	int data;
@@ -467,17 +469,102 @@ public class VLinkedList {
 			list1_node = list1_node.next;
 			list2_node = list2_node.next;
 		}
-		
-		
 		return true;
 	}
 
 
-	public void sort(LNode node){
+    public void sort(){
+        head = sort(head);
+    }
+
+	/*private VLinkedList sort(VLinkedList list){
+
+        LNode node = list.head;
+
+        if(node==null || node.next == null)
+            return list;
 
 
-	}
-	
+        LNode node1 = node;
+        LNode node2 = node.next;
+
+        while (node2!= null && node2.next!=null){
+            node1 = node1.next;
+            node2 = node2.next.next;
+        }
+
+        node2 = node1;
+        node1.next = null;
+       // System.out.println("Median :"+median.data);
+        //LNode median_next = median.next;
+        //median.next = null;
+
+        VLinkedList list1 = new VLinkedList();
+        list1.head = node;
+
+        VLinkedList list2 = new VLinkedList();
+        list2.head = node2;
+
+        return LLutil.merge(list1,list2);
+	}*/
+
+
+	private LNode sort(LNode node){
+
+        if(node==null || node.next == null) {
+            return node;
+        }
+
+        LNode mid = getMedianNode();
+        LNode midNext = mid.next;
+        mid.next = null;
+
+        LNode l1 = sort(node);
+        LNode l2 = sort(midNext);
+
+        System.out.println(l1.data);
+        System.out.println(l2.data);
+
+        return mergeNodes(l1,l2);
+
+    }
+
+
+    public LNode mergeNodes(LNode a, LNode b) {
+
+        if(a==null && b==null)
+            return null;
+
+        if(a==null)
+            return b;
+
+        if(b==null)
+            return a;
+
+        LNode temp;
+
+        if(a.data <b.data) {
+            temp = a;
+            temp.next = mergeNodes(a.next,b);
+        }else {
+            temp = b;
+            temp.next = mergeNodes(a, b.next);
+        }
+        return temp;
+}
+
+	private LNode getMedianNode(){
+
+        LNode slow = head;
+        LNode fast = head;
+
+        while(fast != null && fast.next!=null && fast.next.next!=null ){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
 	/**
 	 * clears the linked list
 	 */
