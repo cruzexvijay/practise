@@ -471,6 +471,12 @@ public class VLinkedList {
 		
 		return true;
 	}
+
+
+	public void sort(LNode node){
+
+
+	}
 	
 	/**
 	 * clears the linked list
