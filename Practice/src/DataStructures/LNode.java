@@ -13,4 +13,13 @@ public class LNode{
 		this.data = data;
 		this.next=null;
 	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		// TODO Auto-generated method stub
+		System.out.println("removed : "+this.data);
+		super.finalize();
+	}
+	
+	
 }

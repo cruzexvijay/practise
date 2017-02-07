@@ -62,6 +62,11 @@ public class Main {
 		list.add(12);
 		list.sortedInsert(11);
 		list.printList();
+		
+		
+		list.clear();
+				
+		System.out.println();
 	}
 	
 	public static int findSize(LNode node){

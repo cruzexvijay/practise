@@ -3,15 +3,14 @@ package DataStructures;
 public class VLinkedList {
 
 	int data;
-	private int length=0;
-
+	
 	public LNode head=null;
 	
 	/**
 	 * Method to add element to the end of the list
 	 * @param data new data to be inserted into the list
 	 */
-	public void add(int data){
+	public VLinkedList add(int data){
 		
 		if(head==null){
 			head = new LNode(data);
@@ -29,7 +28,7 @@ public class VLinkedList {
 			//head = node;
 		}
 		
-		length++;
+		return this;
 	}
 	
 	/**
@@ -37,13 +36,13 @@ public class VLinkedList {
 	 * @param data new data to be inserted
 	 * @param pos position to insert
 	 */
-	public void add(int data,int pos){
+	public VLinkedList add(int data,int pos){
 		
 		if(pos==0){
 			LNode newNode = new LNode(data);
 			newNode.next = head;
 			head = newNode;
-			return;
+			return this;
 		}
 		
 		LNode curr=head;
@@ -64,6 +63,7 @@ public class VLinkedList {
 			System.out.println("Cannot insert element at the specified position");
 		}
 		
+		return this;
 	}
 	
 	/**
@@ -71,7 +71,14 @@ public class VLinkedList {
 	 * @return size of the list
 	 */
 	public int size(){
-		return length;
+		return size(head);
+	}
+	
+	private int size(LNode node){
+		if(node==null)
+			return 0;
+		
+		return 1+size(node.next);
 	}
 	
 	/**
@@ -98,8 +105,7 @@ public class VLinkedList {
 			return;
 		
 		prevNode.next = currentNode.next;
-		length--;
-		
+				
 	}
 	
 	/**
@@ -134,8 +140,7 @@ public class VLinkedList {
 			return;
 		
 		prev.next = curr.next;
-		length--;
-		
+			
 	}
 		
 	public void printList(){
@@ -440,6 +445,39 @@ public class VLinkedList {
 		prev.next = newNode;		
 	}
 
+
+	/**
+	 * checks whether two linked lists are equal or not
+	 * @param list2 list to be checked against
+	 * @return true if equals, false if not;
+	 */
+	public boolean equals(VLinkedList list2){
+				
+		if(this.size()!=list2.size())
+			return false;
+		
+		LNode list1_node = this.head;
+		LNode list2_node = list2.head;
+		
+		while(list1_node!=null && list2_node != null){
+			
+			if(list1_node.data != list2_node.data)
+				return false;
+			
+			list1_node = list1_node.next;
+			list2_node = list2_node.next;
+		}
+		
+		
+		return true;
+	}
+	
+	/**
+	 * clears the linked list
+	 */
+	public void clear(){
+		this.head = null;
+	}
 	
 }
 
